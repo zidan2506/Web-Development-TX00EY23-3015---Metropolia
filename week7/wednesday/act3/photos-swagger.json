@@ -1,0 +1,221 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "JSONPlaceholder Photos API",
+    "description": "OpenAPI specification for the `/photos` resource provided by JSONPlaceholder.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://jsonplaceholder.typicode.com"
+    }
+  ],
+  "paths": {
+    "/photos": {
+      "get": {
+        "tags": [
+          "Photo"
+        ],
+        "summary": "Retrieve a list of photos",
+        "operationId": "getPhotos",
+        "responses": {
+          "200": {
+            "description": "A list of photos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Photo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Photo"
+        ],
+        "summary": "Create a new photo",
+        "operationId": "createPhoto",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPhoto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Photo created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Photo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/photos/{photoId}": {
+      "parameters": [
+        {
+          "name": "photoId",
+          "in": "path",
+          "required": true,
+          "description": "ID of the photo",
+          "schema": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Photo"
+        ],
+        "summary": "Retrieve a specific photo",
+        "operationId": "getPhotoById",
+        "responses": {
+          "200": {
+            "description": "The requested photo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Photo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Photo not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Photo"
+        ],
+        "summary": "Update a specific photo",
+        "operationId": "updatePhoto",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPhoto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Photo updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Photo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Photo not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Photo"
+        ],
+        "summary": "Delete a specific photo",
+        "operationId": "deletePhoto",
+        "responses": {
+          "200": {
+            "description": "Photo deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Photo not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Photo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "albumId": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "accusamus beatae ad facilis cum similique qui sunt"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://picsum.photos/seed/1/600"
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://picsum.photos/seed/1/150"
+          }
+        }
+      },
+      "NewPhoto": {
+        "type": "object",
+        "required": [
+          "albumId",
+          "title",
+          "url",
+          "thumbnailUrl"
+        ],
+        "properties": {
+          "albumId": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "accusamus beatae ad facilis cum similique qui sunt"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://picsum.photos/seed/1/600"
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://picsum.photos/seed/1/150"
+          }
+        }
+      }
+    }
+  }
+}
